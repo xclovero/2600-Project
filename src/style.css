@@ -1,0 +1,50 @@
+html {
+    font-family: sans-serif;
+}
+
+.app {
+    border:1px solid grey;
+    border-radius: .25rem;
+    max-width:1300px;
+    padding:.5rem;
+    margin: auto;
+    text-align: center;
+}
+
+.random-jokes ul {
+    list-style-type: none;
+    padding:0;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:.5rem;
+
+    align-items:start;
+}
+
+.random-jokes li {
+    padding:.5rem;
+    background-color: papayawhip;
+    border-radius:.25rem;
+}
+
+input, select {
+     display: inline-block;
+}
+
+.highScore-game {
+    padding:.5rem;
+    background-color: aliceblue;
+    border-radius:.25rem;
+    border:slateblue 1px solid;
+    width: auto;
+}
+
+.joke select {
+    margin-left:.5rem;
+}
+
+.joke form {
+    border-top:1px solid brown;
+    padding-top:.5rem;
+    text-align:right;
+}
