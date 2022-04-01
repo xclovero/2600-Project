@@ -1,7 +1,15 @@
 const Company = require("../models/Company.js");
 
+
+const getAllCompany = (req,res)=>{
+    Company.find({}).exec()
+    .then(result=>{
+        res.status(200).send(result)
+    })
+    .catch(error=>res.status(500).send(error));
+};
+
 const getCompany = (req,res)=>{
-    console.log(req.params.name);
     Company.findOne({name:req.params.name}).exec()
     .then(company=>{
         res.status(200).send(company);
@@ -27,5 +35,6 @@ const postCompany = (req,res)=>{
 
 module.exports = {
     getCompany,
-    postCompany
+    postCompany,
+    getAllCompany
 };

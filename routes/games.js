@@ -4,7 +4,7 @@ const {getGames, getGamesFromCompany, getOneHighScoreGame, postGame} = require("
 
 router.get('/', getGames);
 router.get('/:company', getGamesFromCompany);
-router.get('/:score', getOneHighScoreGame);
+router.get('/highScore', getOneHighScoreGame);
 router.post('/', postGame);
 
 module.exports = router;

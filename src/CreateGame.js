@@ -12,6 +12,7 @@ const CreateGame = props=>{
     const [name, setName] = useState();
     const [developer, setDeveloper] = useState();
     const [score, setScore] = useState();
+    const [game, setGame] = useState();
     
     const changePC = ()=>{
         setPc(!pc);
@@ -72,25 +73,32 @@ const CreateGame = props=>{
         
         axios.post('/GameAPI/games', game)
         .then(result=>{
-            console.log(result.data);
+            setGame(result.data);
         })
         .catch(error=>console.log(error));
     }
     
     return <>
         <h2>Create Game</h2>
-        <form onSubmit={event=>submitGame(event)}>
+        <form onSubmit={event=>submitGame(event)} className="create-game">
+            <div className="label">
             <label>
                 Name of game: 
                 <input type="text" onChange={event=>{handleName(event)}}/>
             </label>
+            </div>
+            <div className="label">
             <label>
                 Choose a company: 
                 <select defaultValue='default' onChange={event=>{handleCompany(event)}}>
                     <option disabled value='default'> -- choose a company --</option>
-                    <option value="SE">SE</option>
+                    {props.companies != undefined &&
+                    props.companies.map((company,index)=>
+                    <option key={index} value={company.name}>{company.name}</option>)}
                 </select>
             </label>
+            </div>
+            <div className="label">
             <label>
                 Platform(s):
                 <label>
@@ -114,11 +122,16 @@ const CreateGame = props=>{
                     <input type="checkbox" checked={ns} onChange={changeNS} />
                 </label>
             </label>
+            </div>
+            <div className="label">
             <label>
                 Score: 
                 <input type="number" onChange={event=>{handleScore(event)}}/>
             </label>
+            </div>
+            <div className="label">
             <button>Submit new game</button>
+            </div>
         </form>
     </>
 };

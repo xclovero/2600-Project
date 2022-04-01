@@ -1,10 +1,18 @@
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import axios from 'axios';
 
 const CreateCompany = props=>{
     
     const [company, setCompany] = useState();
+    
+    useEffect(function displayCompanies(){
+        axios.get('/GameAPI/company')
+        .then(result=>{
+            props.handleCompanies(result.data);
+        })
+        .catch(error=>console.log(error));
+    }, [])
     
     const handleCompany = event=>{
         let developer = {'name': event.target.value};
@@ -16,6 +24,11 @@ const CreateCompany = props=>{
         axios.post('/GameAPI/company', company)
         .then(result=>{
             console.log(result.data);
+        })
+        .catch(error=>console.log(error));
+        axios.get('/GameAPI/company')
+        .then(result=>{
+            props.handleCompanies(result.data);
         })
         .catch(error=>console.log(error));
     };

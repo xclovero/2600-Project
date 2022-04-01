@@ -9960,10 +9960,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _HighScoreGame_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HighScoreGame.js */ "./src/HighScoreGame.js");
-/* harmony import */ var _RandomGame_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RandomGame.js */ "./src/RandomGame.js");
-/* harmony import */ var _CreateCompany_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CreateCompany.js */ "./src/CreateCompany.js");
-/* harmony import */ var _CreateGame_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CreateGame.js */ "./src/CreateGame.js");
-/* harmony import */ var _DisplayGames_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./DisplayGames.js */ "./src/DisplayGames.js");
+/* harmony import */ var _CreateCompany_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CreateCompany.js */ "./src/CreateCompany.js");
+/* harmony import */ var _CreateGame_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CreateGame.js */ "./src/CreateGame.js");
+/* harmony import */ var _DisplayGames_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DisplayGames.js */ "./src/DisplayGames.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -9973,9 +9983,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState2 = _slicedToArray(_useState, 2),
+      companies = _useState2[0],
+      setCompanies = _useState2[1];
+
+  var handleCompanies = function handleCompanies(allCompanies) {
+    setCompanies(allCompanies);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "app"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Vedio Game"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HighScoreGame_js__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_RandomGame_js__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CreateCompany_js__WEBPACK_IMPORTED_MODULE_3__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CreateGame_js__WEBPACK_IMPORTED_MODULE_4__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DisplayGames_js__WEBPACK_IMPORTED_MODULE_5__["default"], null)));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h1", null, "Vedio Game"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_HighScoreGame_js__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CreateCompany_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    handleCompanies: handleCompanies
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_CreateGame_js__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    companies: companies
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_DisplayGames_js__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    companies: companies
+  })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
@@ -10018,6 +10043,14 @@ var CreateCompany = function CreateCompany(props) {
       company = _useState2[0],
       setCompany = _useState2[1];
 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function displayCompanies() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/GameAPI/company').then(function (result) {
+      props.handleCompanies(result.data);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  }, []);
+
   var handleCompany = function handleCompany(event) {
     var developer = {
       'name': event.target.value
@@ -10029,6 +10062,11 @@ var CreateCompany = function CreateCompany(props) {
     event.preventDefault();
     axios__WEBPACK_IMPORTED_MODULE_1___default().post('/GameAPI/company', company).then(function (result) {
       console.log(result.data);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/GameAPI/company').then(function (result) {
+      props.handleCompanies(result.data);
     })["catch"](function (error) {
       return console.log(error);
     });
@@ -10121,6 +10159,11 @@ var CreateGame = function CreateGame(props) {
       score = _useState16[0],
       setScore = _useState16[1];
 
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState18 = _slicedToArray(_useState17, 2),
+      game = _useState18[0],
+      setGame = _useState18[1];
+
   var changePC = function changePC() {
     setPc(!pc);
   };
@@ -10184,7 +10227,7 @@ var CreateGame = function CreateGame(props) {
       score: score
     };
     axios__WEBPACK_IMPORTED_MODULE_1___default().post('/GameAPI/games', game).then(function (result) {
-      console.log(result.data);
+      setGame(result.data);
     })["catch"](function (error) {
       return console.log(error);
     });
@@ -10193,13 +10236,18 @@ var CreateGame = function CreateGame(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Create Game"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", {
     onSubmit: function onSubmit(event) {
       return submitGame(event);
-    }
+    },
+    className: "create-game"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "label"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Name of game:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "text",
     onChange: function onChange(event) {
       handleName(event);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Choose a company:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "label"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Choose a company:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
     defaultValue: "default",
     onChange: function onChange(event) {
       handleCompany(event);
@@ -10207,9 +10255,14 @@ var CreateGame = function CreateGame(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
     disabled: true,
     value: "default"
-  }, " -- choose a company --"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
-    value: "SE"
-  }, "SE"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Platform(s):", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "PC", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+  }, " -- choose a company --"), props.companies != undefined && props.companies.map(function (company, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+      key: index,
+      value: company.name
+    }, company.name);
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "label"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Platform(s):", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "PC", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "checkbox",
     checked: pc,
     onChange: changePC
@@ -10229,12 +10282,16 @@ var CreateGame = function CreateGame(props) {
     type: "checkbox",
     checked: ns,
     onChange: changeNS
-  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Score:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "label"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Score:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
     type: "number",
     onChange: function onChange(event) {
       handleScore(event);
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Submit new game")));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+    className: "label"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Submit new game"))));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CreateGame);
@@ -10253,15 +10310,70 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Game_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Game.js */ "./src/Game.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
 
 
 var DisplayGames = function DisplayGames(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+      _useState2 = _slicedToArray(_useState, 2),
+      games = _useState2[0],
+      setGames = _useState2[1];
+
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+      _useState4 = _slicedToArray(_useState3, 2),
+      company = _useState4[0],
+      setCompany = _useState4[1];
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function handleGamesFromCompany() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("/GameAPI/company/".concat(company)).then(function (result) {
+      setGames(result.data.games);
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  }, [company]);
+
+  var handleChangeCompany = function handleChangeCompany(event) {
+    event.preventDefault();
+    setCompany(event.target.value);
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Games"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("label", null, "Choose a company:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("select", {
-    defaultValue: "default"
+    defaultValue: "default",
+    onChange: function onChange(event) {
+      return handleChangeCompany(event);
+    }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
     disabled: true,
     value: "default"
-  }, " -- choose a company --"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("button", null, "Submit")));
+  }, " -- choose a company --"), props.companies != undefined && props.companies.map(function (company, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("option", {
+      key: index,
+      value: company.name
+    }, company.name);
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("ul", null, games != undefined && games.map(function (game, index) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("li", {
+      key: index
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Game_js__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      game: game
+    }));
+  })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DisplayGames);
@@ -10283,7 +10395,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Game = function Game(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, props.game.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Developer(s): ", props.game.developer), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Score: ", props.game.score));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, props.game.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Score: ", props.game.score), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Platform(s): ", props.game.platforms.join(', ')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Developer: ", props.game.developer));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Game);
@@ -10303,6 +10415,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Game_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Game.js */ "./src/Game.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -10319,48 +10433,38 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var HighScoreGame = function HighScoreGame(props) {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
-    name: "Final Fantasy XIV - Endwalker",
-    developer: "Square Enix",
-    score: 9
-  }),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
       _useState2 = _slicedToArray(_useState, 2),
       game = _useState2[0],
       setGame = _useState2[1];
 
+  var frequency = 10000;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function setTimeReload() {
+    var reload = function reload() {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get('/GameAPI/games/highScore').then(function (result) {
+        var random = Math.floor(Math.random() * result.data.length);
+        setGame(result.data[random]);
+      })["catch"](function (error) {
+        return console.log(error);
+      });
+    };
+
+    var reloader = setInterval(reload, frequency);
+    reload();
+    return function stopReload() {
+      clearInterval(reloader);
+    };
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     className: "highScore-game"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "High Score Game"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Game_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "High Score Game"), game != undefined && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_Game_js__WEBPACK_IMPORTED_MODULE_1__["default"], {
     game: game
   })));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HighScoreGame);
-
-/***/ }),
-
-/***/ "./src/RandomGame.js":
-/*!***************************!*\
-  !*** ./src/RandomGame.js ***!
-  \***************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _Game_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Game.js */ "./src/Game.js");
-
-
-
-var RandomGame = function RandomGame(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h2", null, "Random Games"));
-};
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RandomGame);
 
 /***/ }),
 
@@ -10384,7 +10488,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "html {\n    font-family: sans-serif;\n}\n\n.app {\n    border:1px solid grey;\n    border-radius: .25rem;\n    max-width:1300px;\n    padding:.5rem;\n    margin: auto;\n    text-align: center;\n}\n\n.random-jokes ul {\n    list-style-type: none;\n    padding:0;\n    display:grid;\n    grid-template-columns: 1fr 1fr;\n    gap:.5rem;\n\n    align-items:start;\n}\n\n.random-jokes li {\n    padding:.5rem;\n    background-color: papayawhip;\n    border-radius:.25rem;\n}\n\ninput, select {\n     display: inline-block;\n}\n\n.highScore-game {\n    padding:.5rem;\n    background-color: aliceblue;\n    border-radius:.25rem;\n    border:slateblue 1px solid;\n    width: auto;\n}\n\n.joke select {\n    margin-left:.5rem;\n}\n\n.joke form {\n    border-top:1px solid brown;\n    padding-top:.5rem;\n    text-align:right;\n}\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;AAC3B;;AAEA;IACI,qBAAqB;IACrB,qBAAqB;IACrB,gBAAgB;IAChB,aAAa;IACb,YAAY;IACZ,kBAAkB;AACtB;;AAEA;IACI,qBAAqB;IACrB,SAAS;IACT,YAAY;IACZ,8BAA8B;IAC9B,SAAS;;IAET,iBAAiB;AACrB;;AAEA;IACI,aAAa;IACb,4BAA4B;IAC5B,oBAAoB;AACxB;;AAEA;KACK,qBAAqB;AAC1B;;AAEA;IACI,aAAa;IACb,2BAA2B;IAC3B,oBAAoB;IACpB,0BAA0B;IAC1B,WAAW;AACf;;AAEA;IACI,iBAAiB;AACrB;;AAEA;IACI,0BAA0B;IAC1B,iBAAiB;IACjB,gBAAgB;AACpB","sourcesContent":["html {\n    font-family: sans-serif;\n}\n\n.app {\n    border:1px solid grey;\n    border-radius: .25rem;\n    max-width:1300px;\n    padding:.5rem;\n    margin: auto;\n    text-align: center;\n}\n\n.random-jokes ul {\n    list-style-type: none;\n    padding:0;\n    display:grid;\n    grid-template-columns: 1fr 1fr;\n    gap:.5rem;\n\n    align-items:start;\n}\n\n.random-jokes li {\n    padding:.5rem;\n    background-color: papayawhip;\n    border-radius:.25rem;\n}\n\ninput, select {\n     display: inline-block;\n}\n\n.highScore-game {\n    padding:.5rem;\n    background-color: aliceblue;\n    border-radius:.25rem;\n    border:slateblue 1px solid;\n    width: auto;\n}\n\n.joke select {\n    margin-left:.5rem;\n}\n\n.joke form {\n    border-top:1px solid brown;\n    padding-top:.5rem;\n    text-align:right;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n    font-family: sans-serif;\n}\n\n.app {\n    border:1px solid grey;\n    border-radius: .25rem;\n    max-width:1300px;\n    padding:.5rem;\n    margin: auto;\n    text-align: center;\n}\n\nselect {\n     display: inline-block;\n}\n\n.highScore-game {\n    padding:.5rem;\n    background-color: aliceblue;\n    border-radius:.25rem;\n    border:slateblue 1px solid;\n    width: auto;\n}\n\nli {\n    list-style: none;\n    width: 25%;\n    display: inline-table;\n}\n\n.create-game {\n    text-align: center;\n}\n\n.label {\n    margin: 5px 0;\n}\n\n.label label {\n    padding-right: 10px;\n    text-align: right;\n    display:inline-block;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;AAC3B;;AAEA;IACI,qBAAqB;IACrB,qBAAqB;IACrB,gBAAgB;IAChB,aAAa;IACb,YAAY;IACZ,kBAAkB;AACtB;;AAEA;KACK,qBAAqB;AAC1B;;AAEA;IACI,aAAa;IACb,2BAA2B;IAC3B,oBAAoB;IACpB,0BAA0B;IAC1B,WAAW;AACf;;AAEA;IACI,gBAAgB;IAChB,UAAU;IACV,qBAAqB;AACzB;;AAEA;IACI,kBAAkB;AACtB;;AAEA;IACI,aAAa;AACjB;;AAEA;IACI,mBAAmB;IACnB,iBAAiB;IACjB,oBAAoB;AACxB","sourcesContent":["html {\n    font-family: sans-serif;\n}\n\n.app {\n    border:1px solid grey;\n    border-radius: .25rem;\n    max-width:1300px;\n    padding:.5rem;\n    margin: auto;\n    text-align: center;\n}\n\nselect {\n     display: inline-block;\n}\n\n.highScore-game {\n    padding:.5rem;\n    background-color: aliceblue;\n    border-radius:.25rem;\n    border:slateblue 1px solid;\n    width: auto;\n}\n\nli {\n    list-style: none;\n    width: 25%;\n    display: inline-table;\n}\n\n.create-game {\n    text-align: center;\n}\n\n.label {\n    margin: 5px 0;\n}\n\n.label label {\n    padding-right: 10px;\n    text-align: right;\n    display:inline-block;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -1,4 +1,5 @@
 const {Game} = require("../models/Game.js");
+const Company = require("../models/Company.js");
 
 const getGames = (req,res)=>{
     Game.find({}).exec()
@@ -17,7 +18,7 @@ const getGamesFromCompany = (req,res)=>{
 }
 
 const getOneHighScoreGame = (req,res)=>{
-    Game.aggregate([{$match:{score:{$gte:8}}}, {$group:{_id:null}}]).exec()
+    Game.aggregate([{$match:{score:{$gte:7}}}, {$group:{_id:null}}]).exec()
     .then(result=>{
         res.status(200).send(result);
     })
@@ -25,22 +26,33 @@ const getOneHighScoreGame = (req,res)=>{
 };
 
 const postGame = (req,res)=>{
-    let game = new Game({
-        name: req.body.name,
-        developer: req.body.company,
-        platforms: req.body.platforms,
-        score: req.body.score
-    });
-    game.save()
-    .then(result=>{
-        let newGame = ({
-            data: game,
-            url: `/GameAPI/locations/${game._id}`
+    Company.findOne({"name": req.body.company}).exec()
+    .then(company=>{
+        console.log(company);
+        let game = new Game({
+            name: req.body.name,
+            developer: req.body.company,
+            platforms: req.body.platforms,
+            score: req.body.score
         });
-        res.set('content-location', `/GameAPI/locations/${game._id}`);
-        res.status(201).send(newGame);
+        company.games.push(game);
+        company.save()
+        .then(result=>{
+            console.log(result.data);
+        })
+        .catch(error=>res.status(500).send(error))
+        game.save()
+        .then(result=>{
+            let newGame = ({
+                data: game,
+                url: `/GameAPI/locations/${game._id}`
+            });
+            res.set('content-location', `/GameAPI/locations/${game._id}`);
+            res.status(201).send(newGame);
+        })
+        .catch(error=>res.status(500).send(error));
     })
-    .catch(error=>res.status(500).send(error));
+    
 };
 
 module.exports = {
