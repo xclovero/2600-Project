@@ -8,9 +8,7 @@ const CompanySchema = new Schema({
         required:true, 
         maxLength: 30
     },
-    games:{
-        type:[GameSchema]
-    }
+    games: [GameSchema]
 });
 
 const Company = mongoose.model("Company", CompanySchema);

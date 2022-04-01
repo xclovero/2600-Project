@@ -11,23 +11,7 @@ html {
     text-align: center;
 }
 
-.random-jokes ul {
-    list-style-type: none;
-    padding:0;
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap:.5rem;
-
-    align-items:start;
-}
-
-.random-jokes li {
-    padding:.5rem;
-    background-color: papayawhip;
-    border-radius:.25rem;
-}
-
-input, select {
+select {
      display: inline-block;
 }
 
@@ -39,12 +23,22 @@ input, select {
     width: auto;
 }
 
-.joke select {
-    margin-left:.5rem;
+li {
+    list-style: none;
+    width: 25%;
+    display: inline-table;
 }
 
-.joke form {
-    border-top:1px solid brown;
-    padding-top:.5rem;
-    text-align:right;
+.create-game {
+    text-align: center;
+}
+
+.label {
+    margin: 5px 0;
+}
+
+.label label {
+    padding-right: 10px;
+    text-align: right;
+    display:inline-block;
 }
