@@ -21,6 +21,10 @@ const GameSchema = new Schema({
         required:true,
         max: 10,
         min: 1
+    },
+    count:{
+        type:Number,
+        default:1
     }
 });
 
