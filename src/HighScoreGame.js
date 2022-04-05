@@ -11,7 +11,7 @@ const HighScoreGame = props=>{
     
     useEffect(function setTimeReload(){
         const reload = () => {
-            axios.get('/GameAPI/games/highScore')
+            axios.get('/GameAPI/games/high-score')
             .then(result=>{
                 let random = Math.floor(Math.random()*result.data.length);
                 setGame(result.data[random]);

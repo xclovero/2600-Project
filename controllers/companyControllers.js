@@ -25,7 +25,7 @@ const postCompany = (req,res)=>{
             console.log(result);
             if(result==undefined){
                 let company = new Company({
-                    name: req.body.name,
+                    name: req.body.name
                 });
                 company.save()
                 .then(result=>{

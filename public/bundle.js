@@ -10439,7 +10439,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Game = function Game(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, props.game.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Score: ", props.game.score), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Platform(s): ", props.game.platforms.join(', ')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Developer: ", props.game.developer));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("h3", null, props.game.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Average score: ", props.game.score), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Number of ratings: ", props.game.count), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Platform(s): ", props.game.platforms.join(', ')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, "Developer: ", props.game.developer));
 };
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Game);
@@ -10487,7 +10487,7 @@ var HighScoreGame = function HighScoreGame(props) {
   var frequency = 10000;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function setTimeReload() {
     var reload = function reload() {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get('/GameAPI/games/highScore').then(function (result) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get('/GameAPI/games/high-score').then(function (result) {
         var random = Math.floor(Math.random() * result.data.length);
         setGame(result.data[random]);
       })["catch"](function (error) {
