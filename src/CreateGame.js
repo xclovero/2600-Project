@@ -13,6 +13,8 @@ const CreateGame = props=>{
     const [developer, setDeveloper] = useState();
     const [score, setScore] = useState();
     const [game, setGame] = useState();
+    const [errorMessage, setErrorMessage] = useState([]);
+    const [displayError, setDisplayError] = useState(false);
     
     const changePC = ()=>{
         setPc(!pc);
@@ -36,15 +38,15 @@ const CreateGame = props=>{
     
     const handleName = event =>{
         setName(event.target.value);
-    }
+    };
     
     const handleCompany = event=>{
         setDeveloper(event.target.value);
-    }
-    
+    };
+
     const handleScore = event=>{
         setScore(event.target.value);
-    }
+    };
     
     const submitGame = event=>{
         event.preventDefault();
@@ -66,20 +68,28 @@ const CreateGame = props=>{
         }
         let game = {
             name: name,
-            company: developer,
+            developer: developer,
             platforms: platform,
             score: score
         };
         
         axios.post('/GameAPI/games', game)
         .then(result=>{
-            setGame(result.data);
+            if (Array.isArray(result.data)){
+                setErrorMessage(result.data);
+                setDisplayError(true);
+            } else {
+                setGame(result.data);
+                setDisplayError(false);
+            }
         })
         .catch(error=>console.log(error));
     }
     
     return <>
+        <div className="createGame">
         <h2>Create Game</h2>
+        {displayError && <div className="error">Error: {errorMessage.join(" ")}</div>}
         <form onSubmit={event=>submitGame(event)} className="create-game">
             <div className="label">
             <label>
@@ -133,6 +143,7 @@ const CreateGame = props=>{
             <button>Submit new game</button>
             </div>
         </form>
+        </div>
     </>
 };
 

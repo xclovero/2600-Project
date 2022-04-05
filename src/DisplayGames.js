@@ -22,6 +22,7 @@ const DisplayGames = props=>{
     };
     
     return <>
+        <div className="displayGame">
         <h2>Games</h2>
         <form>
             <label>
@@ -38,6 +39,7 @@ const DisplayGames = props=>{
             {games != undefined && games.map((game,index)=>
             <li key={index}><Game game={game} /></li>)}
         </ul>
+        </div>
     </>
     
 };

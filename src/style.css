@@ -1,14 +1,18 @@
 html {
     font-family: sans-serif;
+    background-color: #120638;
 }
 
+
 .app {
-    border:1px solid grey;
-    border-radius: .25rem;
     max-width:1300px;
     padding:.5rem;
     margin: auto;
     text-align: center;
+}
+
+.app h1 {
+    color: white;
 }
 
 select {
@@ -16,16 +20,37 @@ select {
 }
 
 .highScore-game {
-    padding:.5rem;
+    padding: .5rem;
     background-color: aliceblue;
     border-radius:.25rem;
     border:slateblue 1px solid;
-    width: auto;
+}
+
+.createCompany {
+    padding: .5rem;
+    background-color: #ffedc4;
+    border-radius: .25rem;
+    border: #ff9500 1px solid;
+}
+
+.createGame {
+    padding: .5rem;
+    background-color: #bcfcb6;
+    border-radius: .25rem;
+    border: #14e800 1px solid;
+}
+
+.displayGame {
+    padding: .5rem;
+    background-color: #ffd9fc;
+    border-radius: .25rem;
+    border: #ff00ae 1px solid;
 }
 
 li {
     list-style: none;
     width: 25%;
+    height: 200px;
     display: inline-table;
 }
 
@@ -34,11 +59,16 @@ li {
 }
 
 .label {
-    margin: 5px 0;
+    margin: 5px 10px;
 }
 
 .label label {
     padding-right: 10px;
     text-align: right;
     display:inline-block;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
 }

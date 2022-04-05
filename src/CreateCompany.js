@@ -5,14 +5,8 @@ import axios from 'axios';
 const CreateCompany = props=>{
     
     const [company, setCompany] = useState();
-    
-    useEffect(function displayCompanies(){
-        axios.get('/GameAPI/company')
-        .then(result=>{
-            props.handleCompanies(result.data);
-        })
-        .catch(error=>console.log(error));
-    }, [])
+    const [errorMessage, setErrorMessage] = useState([]);
+    const [displayError, setDisplayError] = useState(false);
     
     const handleCompany = event=>{
         let developer = {'name': event.target.value};
@@ -23,7 +17,12 @@ const CreateCompany = props=>{
         event.preventDefault();
         axios.post('/GameAPI/company', company)
         .then(result=>{
-            console.log(result.data);
+            if (Array.isArray(result.data)){
+                setErrorMessage(result.data);
+                setDisplayError(true);
+            } else {
+                setDisplayError(false);
+            }
         })
         .catch(error=>console.log(error));
         axios.get('/GameAPI/company')
@@ -34,7 +33,9 @@ const CreateCompany = props=>{
     };
     
     return <>
+    <div className="createCompany">
         <h2>Create Company</h2>
+        {displayError && <div className="error">Error: {errorMessage}</div>}
         <form onSubmit={event=>submitNewCompany(event)}>
             <label>
                 Name of company: 
@@ -42,6 +43,7 @@ const CreateCompany = props=>{
             </label>
             <button>Submit new company</button>
         </form>
+    </div>    
     </>
 };
 

@@ -5,12 +5,12 @@ const GameSchema = new Schema({
     name:{
         type:String, 
         required:true, 
-        maxLength: 30
+        maxLength: 30,
+        minLength: 2
     },
     developer:{
         type:String,
         required:true,
-        maxLength: 30
     },
     platforms:{
         type:[String], 
@@ -18,7 +18,9 @@ const GameSchema = new Schema({
     },
     score:{
         type:Number,
-        required:true
+        required:true,
+        max: 10,
+        min: 1
     }
 });
 
