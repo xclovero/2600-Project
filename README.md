@@ -61,9 +61,11 @@ $ npm start
 `[{"_id": *********, "name": company1, "games": [{"name": game1, "developer": company1, "platforms"" [], "score": 6, "count": 2}, {"name": game2, "developer": company1, "platforms"" [], "score": 7, "count": 3}]}]`
 
 3. GET https://cpsc2600-chao-xu.herokuapp.com/GameAPI/games Fetch all games
+
 `[{"_id":"*********,","name":"game1","developer":"company1","platforms":["PC","PS4","PS5"],"score":6,"count":3,"__v":0},{"_id":"*********,","name":"game2","developer":"company2","platforms":["NS"],"score":5,"count":1,"__v":0}]`
 
 4. GET https://cpsc2600-chao-xu.herokuapp.com/GameAPI/games/high-score Fetch all games that score of that game are greater or equal than 7
+
 `[{"_id":"*********,","name":"game1","developer":"company1","platforms":["PC","PS4","PS5"],"score":8,"count":3,"__v":0},{"_id":"*********,","name":"game2","developer":"company2","platforms":["NS"],"score":9,"count":1,"__v":0}]`
 
 * **Post Body Format:**
