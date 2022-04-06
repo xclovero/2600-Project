@@ -71,9 +71,11 @@ $ npm start
 * **Post Body Format:**
 
 1. POST https://cpsc2600-chao-xu.herokuapp.com/GameAPI/company Create a new company
+  
 `{"name": string}`
 
 2. POST https://cpsc2600-chao-xu.herokuapp.com/GameAPI/games Create a new game
+  
 `{"name": string, "developer": string, "platforms": [""], score: number}`
 
 * **Example:**
