@@ -53,8 +53,34 @@ $ npm start
 * **Response format:**
 
 1. GET https://cpsc2600-chao-xu.herokuapp.com/GameAPI/company Fetch all companies
-
-`[{"_id": *********, "name": company1, "games": [{"name": game1, "developer": company1, "platforms"" [], "score": 6, "count": 2}]}, {"_id": *********, "name": company2, "games": [{"name": game2, "developer": company1, "platforms"" [], "score": 6, "count": 2}]}]`
+```
+[
+  {
+    "_id": *********, 
+    "name": company1, 
+    "games": [
+      {
+        "name": game1, 
+        "developer": company1, 
+        "platforms"" [""], 
+        "score": 6, 
+        "count": 2
+      }]
+  }, 
+  {
+    "_id": *********, 
+    "name": company2, 
+    "games": [
+      {
+        "name": game2, 
+        "developer": company1, 
+        "platforms"" [""], 
+        "score": 6, 
+        "count": 2
+      }]
+  }
+]
+```
 
 2. GET https://cpsc2600-chao-xu.herokuapp.com/GameAPI/company/<compant-name> Fetch a specific company
 
